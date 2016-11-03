@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -67,6 +68,13 @@ public class MetalMario1103 extends LinearOpMode {
         DcMotor mtrLF = hardwareMap.dcMotor.get("mtrLF");
         DcMotor mtrLM = hardwareMap.dcMotor.get("mtrLM");
         DcMotor mtrLB = hardwareMap.dcMotor.get("mtrLB");
+
+        mtrRF.setDirection(DcMotor.Direction.REVERSE);
+        mtrRM.setDirection(DcMotor.Direction.REVERSE);
+        mtrRB.setDirection(DcMotor.Direction.REVERSE);
+        mtrLF.setDirection(DcMotor.Direction.FORWARD);
+        mtrLM.setDirection(DcMotor.Direction.FORWARD);
+        mtrLB.setDirection(DcMotor.Direction.FORWARD);
 
         double speed;
         double x;
