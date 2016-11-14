@@ -1,0 +1,70 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+
+
+
+@TeleOp(name="MetalMario110", group="Testing")
+
+public class MetalMario1107 extends LinearOpMode {
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        DcMotor mtrRF = hardwareMap.dcMotor.get("mtrRF");
+        DcMotor mtrRM = hardwareMap.dcMotor.get("mtrRM");
+        DcMotor mtrRB = hardwareMap.dcMotor.get("mtrRB");
+        DcMotor mtrLF = hardwareMap.dcMotor.get("mtrLF");
+        DcMotor mtrLM = hardwareMap.dcMotor.get("mtrLM");
+        DcMotor mtrLB = hardwareMap.dcMotor.get("mtrLB");
+
+        mtrRF.setDirection(DcMotor.Direction.REVERSE);
+        mtrRM.setDirection(DcMotor.Direction.FORWARD);
+        mtrRB.setDirection(DcMotor.Direction.FORWARD);
+        mtrLF.setDirection(DcMotor.Direction.REVERSE);
+        mtrLM.setDirection(DcMotor.Direction.REVERSE);
+        mtrLB.setDirection(DcMotor.Direction.REVERSE);
+
+        double speed;
+        double x;
+        double rightMultiplier;
+        double leftMultiplier;
+
+
+        telemetry.addData("Say", "Hello Driver"); //
+        telemetry.update();
+
+// Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+// run until the end of the match (driver presses STOP)
+        while (opModeIsActive()) {
+
+            speed = -100.0 * gamepad1.left_stick_y * gamepad1.left_stick_y * gamepad1.left_stick_y;
+            x = gamepad1.right_stick_x * gamepad1.right_stick_x * gamepad1.right_stick_x;
+            rightMultiplier = (x > 0.05) ? (1 - 2 * x * x * x) : 1.0;
+            leftMultiplier = (x < -0.05) ? (1 + 2 * x * x * x) : 1.0;
+
+            telemetry.addData("time",System.currentTimeMillis() );
+            telemetry.addData("speed",speed);
+            telemetry.addData("x", x);
+            telemetry.update();
+
+
+            mtrRF.setPower(speed * rightMultiplier);
+            mtrRM.setPower(speed * rightMultiplier);
+            mtrRB.setPower(speed * rightMultiplier);
+            mtrLF.setPower(speed * leftMultiplier);
+            mtrLM.setPower(speed * leftMultiplier);
+            mtrLB.setPower(speed * leftMultiplier);
+
+        }
+    }
+}
