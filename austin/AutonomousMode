@@ -1,0 +1,68 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+
+
+@Autonomous(name="AutonomousModeMetalMario", group="Testing")
+
+
+
+public class AutonomousModeMetalMario extends LinearOpMode {
+
+
+    HardwarePushbot robot   = new HardwarePushbot();
+    private ElapsedTime runtime = new ElapsedTime();
+
+    static final double FORWARD_SPEED = 0.6;
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        DcMotor mtrRF = hardwareMap.dcMotor.get("mtrRF");
+        DcMotor mtrRM = hardwareMap.dcMotor.get("mtrRM");
+        DcMotor mtrRB = hardwareMap.dcMotor.get("mtrRB");
+        DcMotor mtrLF = hardwareMap.dcMotor.get("mtrLF");
+        DcMotor mtrLM = hardwareMap.dcMotor.get("mtrLM");
+        DcMotor mtrLB = hardwareMap.dcMotor.get("mtrLB");
+
+        mtrLB.setPower(100);
+        mtrLF.setPower(100);
+        mtrLM.setPower(100);
+        mtrRB.setPower(100);
+        mtrRF.setPower(100);
+        mtrRM.setPower(100);
+
+        mtrRF.setDirection(DcMotor.Direction.REVERSE);
+        mtrRM.setDirection(DcMotor.Direction.FORWARD);
+        mtrRB.setDirection(DcMotor.Direction.FORWARD);
+        mtrLF.setDirection(DcMotor.Direction.REVERSE);
+        mtrLM.setDirection(DcMotor.Direction.REVERSE);
+        mtrLB.setDirection(DcMotor.Direction.REVERSE);
+
+
+        robot.init(hardwareMap);
+
+        waitForStart();
+
+
+        while (opModeIsActive()) {
+
+            mtrLB.setPower(FORWARD_SPEED * 100);
+            mtrLM.setPower(FORWARD_SPEED * 100);
+            mtrLF.setPower(FORWARD_SPEED * 100);
+            mtrRB.setPower(FORWARD_SPEED * 100);
+            mtrRM.setPower(FORWARD_SPEED * 100);
+            mtrRF.setPower(FORWARD_SPEED * 100);
+            runtime.reset();
+            while (opModeIsActive() && (runtime.seconds() < 10.0)) {
+                idle();
+            }
+        }
+    }
+}
